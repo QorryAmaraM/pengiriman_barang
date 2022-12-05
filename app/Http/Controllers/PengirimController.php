@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class SupController extends Controller
+class PengirimController extends Controller
 {
     
     public function create() {
@@ -17,20 +17,20 @@ class SupController extends Controller
         }
         public function store(Request $request) {
         $request->validate([
-        'ID_PENGIRIM' => 'required',
-        'NAMA_PENGIRIM' => 'required',
-        'ALAMAT_PENGIRIM' => 'required',
-        'NOMOR_PENGIRIM' => 'required',
+        'id_pengirim' => 'required',
+        'nama_pengirim' => 'required',
+        'alamat_pengirim' => 'required',
+        'nomor_pengirim' => 'required',
         ]);
         // Menggunakan Query Builder Laravel dan Named Bindings untuk valuesnya
-        DB::insert('INSERT INTO pengirim (ID_PENGIRIM,NAMA_PENGIRIM,
-        ALAMAT_PENGIRIM, NOMOR_PENGIRIM) VALUES
-        (:ID_PENGIRIM, :NAMA_PENGIRIM, :ALAMAT_PENGIRIM, :NOMOR_PENGIRIM)',
+        DB::insert('INSERT INTO pengirim (id_pengirim,nama_pengirim,
+        alamat_pengirim, nomor_pengirim) VALUES
+        (:id_pengirim, :nama_pengirim, :alamat_pengirim, :nomor_pengirim)',
         [
-        'ID_PENGIRIM' => $request->ID_PENGIRIM,
-        'NAMA_PENGIRIM' => $request->NAMA_PENGIRIM,
-        'ALAMAT_PENGIRIM' => $request->ALAMAT_PENGIRIM,
-        'NOMOR_PENGIRIM' => $request->NOMOR_PENGIRIM,
+        'id_pengirim' => $request->id_pengirim,
+        'nama_pengirim' => $request->nama_pengirim,
+        'alamat_pengirim' => $request->alamat_pengirim,
+        'nomor_pengirim' => $request->nomor_pengirim,
         ]
         );
         return redirect()->route('pengirim.index')->with('success', 'Data Pengirim berhasil disimpan');
@@ -38,7 +38,7 @@ class SupController extends Controller
     
         public function index(Request $request) {
             if ($request->has('search')){
-                $datas = DB::select('SELECT * FROM pengirim WHERE is_delete = 0 and NAMA_PENGIRIM = :search;',[
+                $datas = DB::select('SELECT * FROM pengirim WHERE is_delete = 0 and nama_pengirim = :search;',[
                 'search'=>$request->search
                 
             ]);
@@ -54,26 +54,26 @@ class SupController extends Controller
             }
 
             public function edit($id) {
-                $data = DB::table('pengirim')->where('ID_PENGIRIM',
+                $data = DB::table('pengirim')->where('id_pengirim',
                 $id)->first();
                 return view('pengirim.edit')->with('data', $data);
                 }
                 public function update($id, Request $request) {
                 $request->validate([
-                'ID_PENGIRIM' => 'required',
-                'NAMA_PENGIRIM' => 'required',
-                'ALAMAT_PENGIRIM' => 'required',
-                'NOMOR_PENGIRIM' => 'required',
+                'id_pengirim' => 'required',
+                'nama_pengirim' => 'required',
+                'alamat_pengirim' => 'required',
+                'nomor_pengirim' => 'required',
                 ]);
                 // Menggunakan Query Builder Laravel dan Named Bindings untuk valuesnya
-                DB::update('UPDATE pengirim SET ID_PENGIRIM =
-                :ID_PENGIRIM, NAMA_PENGIRIM = :NAMA_PENGIRIM, ALAMAT_PENGIRIM = :ALAMAT_PENGIRIM, NOMOR_PENGIRIM = :NOMOR_PENGIRIM WHERE ID_PENGIRIM=:id',
+                DB::update('UPDATE pengirim SET id_pengirim =
+                :id_pengirim, nama_pengirim = :nama_pengirim, alamat_pengirim = :alamat_pengirim, nomor_pengirim = :nomor_pengirim WHERE id_pengirim=:id',
                 [
                 'id' => $id,
-                'ID_PENGIRIM' => $request->ID_PENGIRIM,
-                'NAMA_PENGIRIM' => $request->NAMA_PENGIRIM,
-                'ALAMAT_PENGIRIM' => $request->ALAMAT_PENGIRIM,
-                'NOMOR_PENGIRIM' => $request->NOMOR_PENGIRIM,
+                'id_pengirim' => $request->id_pengirim,
+                'nama_pengirim' => $request->nama_pengirim,
+                'alamat_pengirim' => $request->alamat_pengirim,
+                'nomor_pengirim' => $request->nomor_pengirim,
                 ]
                 );
                 return redirect()->route('pengirim.index')->with('success', 'Data Pengirim berhasil diubah');
@@ -81,14 +81,14 @@ class SupController extends Controller
 
                 public function delete($id) {
                     // Menggunakan Query Builder Laravel dan Named Bindings untuk valuesnya
-                    DB::delete('DELETE FROM pengirim WHERE ID_PENGIRIM =
-                    :ID_PENGIRIM', ['ID_PENGIRIM' => $id]);
+                    DB::delete('DELETE FROM pengirim WHERE id_pengirim =
+                    :id_pengirim', ['id_pengirim' => $id]);
                     return redirect()->route('pengirim.index')->with('success', 'Data Pengirim berhasil dihapus');
                     }
 
                     public function soft($id)
                     {
-                        DB::update('UPDATE pengirim SET is_delete = 1 WHERE ID_PENGIRIM = :ID_PENGIRIM', ['ID_PENGIRIM' => $id]);
+                        DB::update('UPDATE pengirim SET is_delete = 1 WHERE id_pengirim = :id_pengirim', ['id_pengirim' => $id]);
 
                         return redirect()->route('pengirim.index')->with('success', 'Data Pengirim berhasil dihapus');
                     }

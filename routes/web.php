@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\SupController;
+use App\Http\Controllers\PengirimController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Userontroller;
@@ -25,7 +25,7 @@ use App\Http\Controllers\HomeController;
 // Auth::routes();
 Route::get('add', [AdminController::class, 'create'])->name('admin.create');
 Route::post('store', [AdminController::class, 'store'])->name('admin.store');
-Route::get('/index', [AdminController::class, 'index'])->name('admin.index');
+Route::get('home', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::get('edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
 // Route::get('/pengirim', [AdminController::class, 'pengirim'])->name('admin.pengirim');
@@ -33,16 +33,16 @@ Route::post('update/{id}', [AdminController::class,'update'])->name('admin.updat
 Route::get('delete/{id}', [AdminController::class,'delete'])->name('admin.delete');
 Route::post('soft/{id}', [AdminController::class, 'soft'])->name('admin.soft');
 
-Route::get('/pengirim', [SupController::class, 'index'])->name('pengirim.index');
-Route::get('/pengirim/add', [SupController::class, 'create'])->name('pengirim.create');
-Route::post('/pengirim/store', [SupController::class, 'store'])->name('pengirim.store');
-Route::get('/pengirim/edit/{id}', [SupController::class, 'edit'])->name('pengirim.edit');
-Route::post('/pengirim/update/{id}', [SupController::class,'update'])->name('pengirim.update');
-Route::get('/pengirim/delete/{id}', [SupController::class,'delete'])->name('pengirim.delete');
-Route::post('/pengirim/soft/{id}', [SupController::class, 'soft'])->name('pengirim.soft');
+Route::get('/pengirim', [PengirimController::class, 'index'])->name('pengirim.index');
+Route::get('/pengirim/add', [PengirimController::class, 'create'])->name('pengirim.create');
+Route::post('/pengirim/store', [PengirimController::class, 'store'])->name('pengirim.store');
+Route::get('/pengirim/edit/{id}', [PengirimController::class, 'edit'])->name('pengirim.edit');
+Route::post('/pengirim/update/{id}', [PengirimController::class,'update'])->name('pengirim.update');
+Route::get('/pengirim/delete/{id}', [PengirimController::class,'delete'])->name('pengirim.delete');
+Route::post('/pengirim/soft/{id}', [PengirimController::class, 'soft'])->name('pengirim.soft');
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
@@ -51,6 +51,6 @@ Auth::routes();
 // Route::get('/', [LoginController::class, 'login'])->name('login');
 // Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

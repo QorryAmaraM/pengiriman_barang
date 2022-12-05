@@ -17,27 +17,25 @@ class AdminController extends Controller
         }
         public function store(Request $request) {
         $request->validate([
-        'ID_PENGIRIM' => 'required',
-        'ID_BARANG' => 'required',
-        'ID_PENERIMA' => 'required',
-        'NAMA_BARANG' => 'required',
-        'JENIS' => 'required',
-        'BERAT' => 'required',
-        'TUJUAN' => 'required',
+        'id_barang' => 'required',
+        'id_pengirim' => 'required',
+        'nama_barang' => 'required',
+        'jenis' => 'required',
+        'berat' => 'required',
+        'tujuan' => 'required',
         ]);
         // Menggunakan Query Builder Laravel dan Named Bindings untuk valuesnya
-        DB::insert('INSERT INTO paket (ID_PENGIRIM,ID_BARANG,ID_PENERIMA,
-        NAMA_BARANG, JENIS, BERAT, TUJUAN) VALUES
-        (:ID_PENGIRIM, :ID_BARANG, :ID_PENERIMA, :NAMA_BARANG, :JENIS, :BERAT,
-        :TUJUAN)',
+        DB::insert('INSERT INTO paket (id_barang,id_pengirim,
+        nama_barang, jenis, berat, tujuan) VALUES
+        (:id_barang, :id_pengirim, :nama_barang, :jenis, :berat,
+        :tujuan)',
         [
-        'ID_PENGIRIM' => $request->ID_PENGIRIM,
-        'ID_BARANG' => $request->ID_BARANG,
-        'ID_PENERIMA' => $request->ID_PENERIMA,
-        'NAMA_BARANG' => $request->NAMA_BARANG,
-        'JENIS' => $request->JENIS,
-        'BERAT' => $request->BERAT,
-        'TUJUAN' => $request->TUJUAN,
+        'id_barang' => $request->id_barang,
+        'id_pengirim' => $request->id_pengirim,
+        'nama_barang' => $request->nama_barang,
+        'jenis' => $request->jenis,
+        'berat' => $request->berat,
+        'tujuan' => $request->tujuan
         ]
         );
         return redirect()->route('admin.index')->with('success', 'Data Barang berhasil disimpan');
@@ -45,19 +43,16 @@ class AdminController extends Controller
 
         public function index(Request $request) {
             if ($request->has('search')){
-                $datas = DB::select('SELECT B.ID_PENGIRIM, K.NAMA_PENGIRIM, B.NAMA_BARANG, B.JENIS, B.BERAT, B.TUJUAN
-            FROM barang B LEFT JOIN pengirim K
-            ON B.ID_PENGIRIM = K.ID_PENGIRIM WHERE B.is_delete = 0 and B.NAMA_BARANG = :search;',[
-                'search'=>$request->search
-                
-            ]);
+                $datas = DB::select('SELECT B.id_barang, K.nama_pengirim, B.nama_barang, B.jenis, B.berat, B.tujuan, T.nama_penerima
+            FROM paket B LEFT JOIN pengirim K 
+            ON B.id_pengirim = K.id_pengirim LEFT JOIN penerima T ON B.id_penerima = T.id_penerima WHERE B.is_delete = 0 and B.nama_barang like \'%'. $request->search . '%\'');
             return view('admin.index')
             
             ->with('datas', $datas);
             } else {
-                $datas = DB::select('SELECT B.ID_PENGIRIM, K.NAMA_PENGIRIM, B.NAMA_BARANG, B.JENIS, B.BERAT, B.TUJUAN
-            FROM barang B LEFT JOIN pengirim K
-            ON b.ID_PENGIRIM = K.ID_PENGIRIM WHERE B.is_delete = 0');
+                $datas = DB::select('SELECT B.id_barang, K.nama_pengirim, B.nama_barang, B.jenis, B.berat, B.tujuan, T.nama_penerima
+            FROM paket B LEFT JOIN pengirim K
+            ON B.id_pengirim = K.id_pengirim LEFT JOIN penerima T ON B.id_penerima = T.id_penerima WHERE B.is_delete = 0');
             return view('admin.index')
             
             ->with('datas', $datas);
@@ -65,33 +60,31 @@ class AdminController extends Controller
             }
 
             public function edit($id) {
-                $data = DB::table('paket')->where('ID_BARANG',
+                $data = DB::table('paket')->where('id_barang',
                 $id)->first();
                 return view('admin.edit')->with('data', $data);
                 }
                 public function update($id, Request $request) {
                 $request->validate([
-                'ID_PENGIRIM' => 'required',
-                'ID_BARANG' => 'required',
-                'ID_PENERIMA' => 'required',
-                'NAMA_BARANG' => 'required',
-                'JENIS' => 'required',
-                'BERAT' => 'required',
-                'TUJUAN' => 'required',
+                'id_barang' => 'required',
+                'id_pengirim' => 'required',
+                'nama_barang' => 'required',
+                'jenis' => 'required',
+                'berat' => 'required',
+                'tujuan' => 'required',
                 ]);
                 // Menggunakan Query Builder Laravel dan Named Bindings untuk valuesnya
-                DB::update('UPDATE paket SET ID_BARANG =
-                :ID_BARANG, ID_PENGIRIM = :ID_PENGIRIM, NAMA_BARANG = :NAMA_BARANG, JENIS = :JENIS,
-                BERAT = :BERAT, TUJUAN=:TUJUAN WHERE ID_BARANG=:id',
+                DB::update('UPDATE paket SET id_barang =
+                :id_barang, id_pengirim = :id_pengirim, nama_barang = :nama_barang, jenis = :jenis,
+                berat = :berat, tujuan = :tujuan WHERE id_barang=:id',
                 [
                 'id' => $id,
-                'ID_PENGIRIM' => $request->ID_PENGIRIM,
-                'ID_BARANG' => $request->ID_BARANG,
-                'ID_PENERIMA' => $request->ID_PENERIMA,
-                'NAMA_BARANG' => $request->NAMA_BARANG,
-                'JENIS' => $request->JENIS,
-                'BERAT' => $request->BERAT,
-                'TUJUAN' => $request->TUJUAN,
+                'id_barang' => $request->id_barang,
+                'id_pengirim' => $request->id_pengirim,
+                'nama_barang' => $request->nama_barang,
+                'jenis' => $request->jenis,
+                'berat' => $request->berat,
+                'tujuan' => $request->tujuan,
                 ]
                 );
                 return redirect()->route('admin.index')->with('success', 'Data barang berhasil diubah');
@@ -99,8 +92,8 @@ class AdminController extends Controller
 
                 public function delete($id) {
                     // Menggunakan Query Builder Laravel dan Named Bindings untuk valuesnya
-                    DB::delete('DELETE FROM paket WHERE ID_BARANG =
-                    :ID_BARANG', ['ID_BARANG' => $id]);
+                    DB::delete('DELETE FROM paket WHERE id_barang =
+                    :id_barang', ['id_barang' => $id]);
                     return redirect()->route('admin.index')->with('success', 'Data Barang berhasil dihapus');
                     }
 
@@ -117,8 +110,8 @@ class AdminController extends Controller
                     
                         // Search in the title and body columns from the posts table
                         $posts =DB::table('paket')
-                            ->where('Nama_Barang', 'LIKE', "%{$search}%")
-                            ->orWhere('Jenis', 'LIKE', "%{$search}%")
+                            ->where('nama_barang', 'LIKE', "%$search%")
+                            ->orWhere('jenis', 'LIKE', "%$search%")
                             ->get();
                     
                         // Return the search view with the resluts compacted
@@ -126,7 +119,7 @@ class AdminController extends Controller
                     }
                     public function soft($id)
                     {
-                        DB::update('UPDATE paket SET B.is_delete = 1 WHERE id_barang = :id_barang', ['id_barang' => $id]);
+                        DB::update('UPDATE paket SET is_delete = 1 WHERE id_barang = :id_barang', ['id_barang' => $id]);
 
                         return redirect()->route('admin.index')->with('success', 'Data Barang berhasil dihapus');
                     }

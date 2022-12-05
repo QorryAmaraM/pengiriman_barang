@@ -19,23 +19,23 @@
 
         <h5 class="card-title fw-bolder mb-3">Ubah Data Pengirim</h5>
 
-		<form method="post" action="{{ route('pengirim.update', $data->ID_PENGIRIM) }}">
+		<form method="post" action="{{ route('pengirim.update', $data->id_pengirim) }}">
 			@csrf
             <div class="mb-3">
-                <label for="ID_PENGIRIM" class="form-label">ID Pengirim</label>
-                <input type="text" class="form-control" id="ID_PENGIRIM" name="ID_PENGIRIM">
+                <label for="id_pengirim" class="form-label">ID Pengirim</label>
+                <input type="text" class="form-control" id="id_pengirim" name="id_pengirim">
             </div>
 			<div class="mb-3">
-                <label for="NAMA_PENGIRIM" class="form-label">Nama Pengirim</label>
-                <input type="text" class="form-control" id="NAMA_PENGIRIM" name="NAMA_PENGIRIM">
+                <label for="nama_pengirim" class="form-label">Nama Pengirim</label>
+                <input type="text" class="form-control" id="nama_pengirim" name="nama_pengirim">
             </div>
             <div class="mb-3">
-                <label for="ALAMAT_PENGIRIM" class="form-label">Alamat Pengirim</label>
-                <input type="text" class="form-control" id="ALAMAT_PENGIRIM" name="ALAMAT_PENGIRIM">
+                <label for="alamat_pengirim" class="form-label">Alamat Pengirim</label>
+                <input type="text" class="form-control" id="alamat_pengirim" name="alamat_pengirim">
             </div>
             <div class="mb-3">
-                <label for="NOMOR_PENGIRIM" class="form-label">No Pengirim</label>
-                <input type="text" class="form-control" id="NOMOR_PENGIRIM" name="NOMOR_PENGIRIM">
+                <label for="nomor_pengirim" class="form-label">No Pengirim</label>
+                <input type="text" class="form-control" id="nomor_pengirim" name="nomor_pengirim">
             </div>
             <div class="text-center">
 				<input type="submit" class="btn btn-primary" value="Ubah" />

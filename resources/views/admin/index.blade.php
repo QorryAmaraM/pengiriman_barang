@@ -39,7 +39,7 @@
                         <a href="{{ route('admin.index') }}"> <i class="menu-icon fa fa-dashboard"></i>Home </a>
                     </li>
                     <li>
-                        <a href="{{ route('sup.index') }}"> <i class="menu-icon fa fa-puzzle-piece"></i>Pengirim </a>
+                        <a href="{{ route('pengirim.index') }}"> <i class="menu-icon fa fa-puzzle-piece"></i>Pengirim </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -54,7 +54,7 @@
                     <div class="header-left">
                         <button class="search-trigger"><i class="fa fa-search"></i></button>
                         <div class="form-inline">
-                        <form class = "row mt-3 ml-3 justify-content-center; "action="/index" method="GET">
+                        <form class = "row mt-3 ml-3 justify-content-center; "action="/home" method="GET">
                             <input type="text" name="search" required/>
                             <button type="submit">Search</button>
                             <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
@@ -70,7 +70,15 @@
                         </a>
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                         </div>
                     </div>
  
@@ -103,7 +111,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Data Gitar</h1>
+                        <h1>Data Paket</h1>
                     </div>
                 </div>
             </div>
@@ -132,29 +140,31 @@
                                 <thead class="thead-dark">
                                     <tr>
                                     <th>No.</th>
-                                    <th>Nama_Pengirim</th>
-                                    <th>Nama_Barang</th>
-                                    <th>Jenis</th>
-                                    <th>Berat</th>
-                                    <th>Tujuan</th>
+                                    <th>nama_pengirim</th>
+                                    <th>nama_penerima</th>
+                                    <th>nama_barang</th>
+                                    <th>jenis</th>
+                                    <th>berat</th>
+                                    <th>tujuan</th>
                                     <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($datas as $data)
                                         <tr>
-                                            <td>{{ $data->ID_BARANG }}</td>
-                                            <td>{{ $data->NAMA_PENGIRIM }}</td>
-                                            <td>{{ $data->NAMA_BARANG }}</td>
-                                            <td>{{ $data->JENIS }}</td>
-                                            <td>{{ $data->BERAT }}</td>
-                                            <td>{{ $data->TUJUAN }}</td>
+                                            <td>{{ $data->id_barang }}</td>
+                                            <td>{{ $data->nama_pengirim }}</td>
+                                            <td>{{ $data->nama_penerima }}</td>
+                                            <td>{{ $data->nama_barang }}</td>
+                                            <td>{{ $data->jenis }}</td>
+                                            <td>{{ $data->berat }}</td>
+                                            <td>{{ $data->tujuan }}</td>
                                             <td class = "form-inline">
-                                                <a href="{{ route('admin.edit', $data->ID_BARANG) }}" type="button" class="ml-1 btn btn-primary rounded-3"></>Ubah</a>
-                                                <a href="{{ route('admin.delete', $data->ID_BARANG) }}" onclick="return confirm('{{ __('Are you sure you want to delete?') }}')" type="button" class="ml-1 btn btn-danger rounded-3"></>Destroy</a>
-                                                <form class = "ml-1 form-inline" method="POST" action="{{ route('admin.soft', $data->ID_BARANG) }}">
+                                                <a href="{{ route('admin.edit', $data->id_barang) }}" type="button" class="ml-1 btn btn-primary rounded-3"></>Ubah</a>
+                                                <a href="{{ route('admin.delete', $data->id_barang) }}" onclick="return confirm('{{ __('Are you sure you want to destroy?') }}')" type="button" class="ml-1 btn btn-danger rounded-3"></>Destroy</a>
+                                                <form class = "ml-1 form-inline" method="POST" action="{{ route('admin.soft', $data->id_barang) }}">
                                                     @csrf
-                                                        <button onclick="return confirm('{{ __('Are you sure you want to destroy?') }}')" type="submit" class="btn btn-warning">Hapus</button>
+                                                        <button onclick="return confirm('{{ __('Are you sure you want to delete?') }}')" type="submit" class="btn btn-warning">Hapus</button>
                                                 </form>
                                             </td>
                                         </tr>

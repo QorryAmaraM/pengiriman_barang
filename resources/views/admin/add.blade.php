@@ -22,32 +22,28 @@
 		<form method="post" action="{{ route('admin.store') }}">
 			@csrf
             <div class="mb-3">
-                <label for="ID_BARANG" class="form-label">ID Barang</label>
-                <input type="text" class="form-control" id="ID_BARANG" name="ID_BARANG">
+                <label for="id_barang" class="form-label">ID Barang</label>
+                <input type="text" class="form-control" id="id_barang" name="id_barang">
             </div>
             <div class="mb-3">
-                <label for="ID_PENGIRIM" class="form-label">ID Pengirim</label>
-                <input type="text" class="form-control" id="ID_PENGIRIM" name="ID_PENGIRIM">
-            </div>
-            <div class="mb-3">
-                <label for="ID_PENERIMA" class="form-label">ID ID Penerima</label>
-                <input type="text" class="form-control" id="ID_PENERIMA" name="ID_PENERIMA">
+                <label for="id_pengirim" class="form-label">ID Pengirim</label>
+                <input type="text" class="form-control" id="id_pengirim" name="id_pengirim">
             </div>
 			<div class="mb-3">
-                <label for="NAMA_BARANG" class="form-label">Nama_Barang</label>
-                <input type="text" class="form-control" id="NAMA_BARANG" name="NAMA_BARANG">
+                <label for="nama_barang" class="form-label">Nama barang</label>
+                <input type="text" class="form-control" id="nama_barang" name="nama_barang">
             </div>
             <div class="mb-3">
-                <label for="JENIS" class="form-label">Jenis</label>
-                <input type="text" class="form-control" id="JENIS" name="JENIS">
+                <label for="jenis" class="form-label">Jenis</label>
+                <input type="text" class="form-control" id="jenis" name="jenis">
             </div>
             <div class="mb-3">
-                <label for="BERAT" class="form-label">Berat</label>
-                <input type="text" class="form-control" id="BERAT" name="BERAT">
+                <label for="berat" class="form-label">Berat</label>
+                <input type="text" class="form-control" id="berat" name="berat">
             </div>
             <div class="mb-3">
-                <label for="TUJUAN" class="form-label">Tujuan</label>
-                <input type="text" class="form-control" id="TUJUAN" name="TUJUAN">
+                <label for="tujuan" class="form-label">Tujuan</label>
+                <input type="text" class="form-control" id="tujuan" name="tujuan">
             </div>
 			<div class="text-center">
 				<input type="submit" class="btn btn-primary" value="Tambah" />

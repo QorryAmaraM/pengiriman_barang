@@ -68,9 +68,18 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="{{ asset('style/images/sup.jpg') }}">
                         </a>
+                        
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                         </div>
                     </div>
  
@@ -103,7 +112,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Data Supplier</h1>
+                        <h1>Data Pengirim</h1>
                     </div>
                 </div>
             </div>
@@ -120,7 +129,7 @@
  
         <div class="content mt-3">
             <div class="animated fadeIn">
-            <a href="{{ route('sup.create') }}" type="button" class="btn btn-success rounded-3">Tambah Supplier</a>
+            <a href="{{ route('pengirim.create') }}" type="button" class="btn btn-success rounded-3">Tambah Pengirim</a>
 
                 @if($message = Session::get('success'))
                     <div class="alert alert-success mt-3" role="alert">
@@ -132,23 +141,23 @@
                                 <thead class="thead-dark">
                                     <tr>
                                     <th>No.</th>
-                                    <th>Nama_Pengirim</th>
-                                    <th>Alamat_Pengirim</th>
-                                    <th>Nomor_Pengirim</th>
+                                    <th>Nama Pengirim</th>
+                                    <th>Alamat Pengirim</th>
+                                    <th>Nomor Pengirim</th>
                                     <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($datas as $data)
                                         <tr>
-                                            <td>{{ $data->ID_PENGIRIM }}</td>
-                                            <td>{{ $data->NAMA_PENGIRIM }}</td>
-                                            <td>{{ $data->ALAMAT_PENGIRIM }}</td>
-                                            <td>{{ $data->NOMOR_PENGIRIM }}</td>
+                                            <td>{{ $data->id_pengirim}}</td>
+                                            <td>{{ $data->nama_pengirim }}</td>
+                                            <td>{{ $data->alamat_pengirim }}</td>
+                                            <td>{{ $data->nomor_pengirim }}</td>
                                             <td class = "form-inline">
-                                                <a href="{{ route('pengirim.edit', $data->ID_PENGIRIM) }}" type="button" class="ml-1 btn btn-primary rounded-3"></>Ubah</a>
-                                                <a href="{{ route('pengirim.delete', $data->ID_PENGIRIM) }}" onclick="return confirm('{{ __('Are you sure you want to delete?') }}')" type="button" class="ml-1 btn btn-danger rounded-3"></>Destroy</a>
-                                                <form class = "ml-1 form-inline" method="POST" action="{{ route('pengirim.soft', $data->ID_PENGIRIM) }}">
+                                                <a href="{{ route('pengirim.edit', $data->id_pengirim) }}" type="button" class="ml-1 btn btn-primary rounded-3"></>Ubah</a>
+                                                <a href="{{ route('pengirim.delete', $data->id_pengirim) }}" onclick="return confirm('{{ __('Are you sure you want to delete?') }}')" type="button" class="ml-1 btn btn-danger rounded-3"></>Destroy</a>
+                                                <form class = "ml-1 form-inline" method="POST" action="{{ route('pengirim.soft', $data->id_pengirim) }}">
                                                     @csrf
                                                         <button onclick="return confirm('{{ __('Are you sure you want to destroy?') }}')" type="submit" class="btn btn-warning">Hapus</button>
                                                 </form>
